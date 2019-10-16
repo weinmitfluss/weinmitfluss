@@ -23,9 +23,9 @@ var info_data = {
 };
 
 var about_data = {
-    ja: "あいうえおかきくけこさしすせそたちつてと",
-    en: "abcdefghijklmnopqrstuvwxyz",
-    de: "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß"
+    ja: "近日公開",
+    en: "coming soon",
+    de: "kommt bald"
 };
 
 var contact_data = {
