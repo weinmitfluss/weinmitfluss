@@ -24,7 +24,7 @@ var info_data = {
 
 var about_data = {
     ja: "川の流れとワイン。ドイツワインに魅せられ、現地のぶどう畑を訪問して、そこからの眺めでまず目に映ったのが川でした。ドイツワインと川には、とても深いつながりがあると直感できる光景でした。それから数十年、ワインに出会い、食に出会い、その繋がりの多様さに目を見張るばかりです。そんな愛すべきドイツワインと食事のマリアージュについて、深く探究していくことを目的として立ち上げたのが、<span class='bold'>『支流の会』</span>です。",
-    en: "River flow and wine. We were fascinated by German wine, visited a local vineyard, and the first thing we saw in the view was the river. We were attracted to German wine, visited a local vineyard, and we first saw that the view of river. It was enough to intuitively feel that there was a very deep connection between German wine and the river. Decades later, we have met wine, met food, and witnessed the diversity of connections. Decades later, we have met wine, met food, and the variety of these marriage are surprised for us. We have founded <span class='bold'>\"Wine with river\"</span> to explore the beloved German wine and food mariage.",
+    en: "River flow and wine. We were fascinated by German wine, visited a local vineyard, and the first thing we saw in the view was the river. We were attracted to German wine, visited a local vineyard, and we first saw that the view of river. It was enough to intuitively feel that there was a very deep connection between German wine and the river. Decades later, we have met wine, met food, and the variety of these marriage are surprised for us. We have founded <span class='bold'>\"Wine with river\"</span> to explore the beloved German wine and food mariage.",
     de: "kommt bald"
 };
 
