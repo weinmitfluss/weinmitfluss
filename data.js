@@ -17,7 +17,7 @@ var info_data = {
         title: "Wein mit Fluss",
         news: "News",
         about: "Über",
-        event: "Ereignis",
+        event: "Veranstaltungen",
         contact: "Kontakt"
     },
 };
