@@ -1,6 +1,18 @@
 
 var lang = "ja";
 
+// News length
+const NEWSLEN = 5;
+
+// Top images
+var imgs = [
+    ['url("./img/img01.jpg")', '0px -120px', '100% auto'],
+    ['url("./img/img02.jpg")', '0px -120px', '100% auto'],
+    ['url("./img/img03.jpg")', '0px -230px', '100% auto'],
+    ['url("./img/img04.jpg")', '0px -180px', '100% auto'],
+    ['url("./img/img05.jpg")', '0px -250px', '100% auto'],
+];
+
 function init() {
     lang = getLang();
     setInfo();
@@ -32,14 +44,6 @@ function getLang() {
     }
     return lang;
 }
-
-var imgs = [
-    ['url("./img/img01.jpg")', '0px -120px', '100% auto'],
-    ['url("./img/img02.jpg")', '0px -120px', '100% auto'],
-    ['url("./img/img03.jpg")', '0px -230px', '100% auto'],
-    ['url("./img/img04.jpg")', '0px -180px', '100% auto'],
-    ['url("./img/img05.jpg")', '0px -250px', '100% auto'],
-];
 
 function setInfo() {
     document.getElementsByTagName("title")[0].innerHTML = info_data[lang].title + " - Homepage";
@@ -101,7 +105,7 @@ function setNews() {
         getEBI("news-body").appendChild(createDiv("bold under", "Sorry Japanese Only."));
     }
     for (let i = 0; i < news.length; i++) {
-        if (i >= 10) {
+        if (i >= NEWSLEN) {
             break;
         }
         getEBI("news-body").appendChild(createDiv("", news[i]));
