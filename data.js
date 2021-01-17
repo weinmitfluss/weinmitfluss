@@ -150,7 +150,7 @@ var event_data = [
             ["rtab right", "Weingut Otto Dünweg / Mosel"],
             ["br", ""],
             ["tab", "6) 2019er Saar Riesling QbA feinherb"],
-            ["rtab right", "Weingut Vols / Mosel(Saar)"],
+            ["rtab right", "Weingut Vols / Mosel"],
             ["br", ""],
             ["tab", "7) 2008er Untertürkheimer Herzogenberg Pinot Noir QbA trocken"],
             ["rtab right", "Weingut Wöhrwag / Württemberg"],
@@ -159,7 +159,7 @@ var event_data = [
             ["rtab right", "Weingut Paul Schumacher / Ahr"],
             ["br", ""],
             ["tab", "9) 1998er Waldracher Sonnenberg Riesling Eiswein"],
-            ["rtab right", "Weingut Heinrich Mertes / Ruwer"],
+            ["rtab right", "Weingut Heinrich Mertes / Mosel"],
         ],
     },
     {
