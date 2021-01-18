@@ -143,10 +143,11 @@ select {
     background-color: transparent;
     border: 2px solid #DE3C3C;
     border-radius: 10px;
+    line-height: 2em;
     padding: 3px 20px 3px 3px;
     margin: 10px;
-    -moz-appearance: none;
     cursor: pointer;
+    outline: none;
 }
 
 #footer {
@@ -163,4 +164,38 @@ select {
 
 #toplink:visited {
     color: #333333;
+}
+
+details {
+    width: 100%;
+    outline: none;
+}
+
+summary {
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+}
+
+#input {
+    width: 95%;
+    padding: 5px 10px;
+    margin: 10px 5px;
+    border-radius: 10px;
+    background-color: transparent;
+    outline: none;
+}
+
+td.cnt {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 10pt;
+}
+
+table.search {
+    width: 95%;
+}
+
+td.search {
+    width: 90%;
 }
