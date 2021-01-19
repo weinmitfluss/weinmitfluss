@@ -21,6 +21,8 @@ function init() {
     setEvent();
     setContact();
     getEBI("event-select").addEventListener("change", changeEvent);
+    getEBI("popup").addEventListener("click", hidePop);
+    getEBI("layer").addEventListener("click", hidePop);
 }
 
 function getLang() {
@@ -81,13 +83,24 @@ function createBr() {
 function createImg(src) {
     let img = document.createElement("img");
     img.src = "./img/cam.png";
-    let a = document.createElement("a");
-    a.href = src;
-    a.target = "imgview";
-    a.appendChild(img);
+    img.className = "imgicon";
+    img.setAttribute("data-img", src);
+    img.addEventListener("click", showPop);
     let div = createDiv("center", "");
-    div.appendChild(a);
+    div.appendChild(img);
     return div;
+}
+
+function showPop(event) {
+    let src = event.target.getAttribute("data-img");
+    getEBI("popup").src = src;
+    getEBI("popup").style.display = "block";
+    getEBI("layer").style.display = "block";
+}
+
+function hidePop() {
+    getEBI("popup").style.display = "none";
+    getEBI("layer").style.display = "none";
 }
 
 function createOption(value, text) {
