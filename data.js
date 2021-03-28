@@ -138,7 +138,7 @@ var event_data = [
             ["tab", "1) NV 2 Pinot Deutscher Sekt Brut"],
             ["rtab right", "Weingut Wöhrwag / Aldinger / Württemberg"],
             ["br", ""],
-            ["tab", "2) 2014er Wintricher Großer Hergott Riesling Kabinett feinherb"],
+            ["tab", "2) 2017er Wintricher Großer Hergott Riesling Kabinett feinherb"],
             ["rtab right", "Weingut Jochen Clemens / Mosel"],
             ["br", ""],
             ["tab", "3) 2020er Cuvee Rose D.Q trocken"],
