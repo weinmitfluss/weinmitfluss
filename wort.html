@@ -42,9 +42,66 @@
             ['Saint Laurent', 'ザンクト・ラウレント', '品種', '赤（Rot）'],
             ['Domina', 'ドミナ', '品種', '赤（Rot）'],
             ['Heroldrebe', 'ヘロルドレーベ', '品種', '赤（Rot）'],
+            ['Qualitätswein', 'クヴァリテーツワイン', '等級など用語', ''],
+            ['Prädikatsweine', 'プレディカーツワイン', '等級など用語', ''],
+            ['Kabinett', 'カビネット', '等級など用語', ''],
+            ['Spätlese', 'シュペートレーゼ', '等級など用語', ''],
+            ['Auslese', 'アウスレーゼ', '等級など用語', ''],
+            ['Beerenauslese', 'ベーレンアウスレーゼ', '等級など用語', ''],
+            ['Trockenbeerenauslese', 'トロッケンベーレンアウスレーゼ', '等級など用語', ''],
+            ['Eiswein', 'アイスワイン', '等級など用語', ''],
+            ['Sekt', 'ゼクト', '等級など用語', ''],
+            ['Trocken', 'トロッケン', '等級など用語', ''],
+            ['Feinherb', 'ファインヘルプ', '等級など用語', ''],
+            ['brut', 'ブリュット', '等級など用語', ''],
+            ['Schiefer', '粘板岩（シーファ）', '土壌関連', ''],
+            ['slate', '英語：スレート', '土壌関連', ''],
+            ['adroise', 'フランス語：アルドワーズ', '土壌関連', ''],
+            ['Muschelkalk', '貝殻石灰岩（ムッシェルカルク）', '土壌関連', ''],
+            ['Kalkstein', '石灰岩（カルクシュタイン）', '土壌関連', ''],
+            ['Buntsandstein', '雑色砂岩（ブントザントシュタイン）', '土壌関連', ''],
+            ['Kreide', '白亜紀（チョーク、クライデ）', '土壌関連', ''],
+            ['Gips', '石膏（ギプス）', '土壌関連', ''],
+            ['Keuper', '泥土岩（コイパー）', '土壌関連', ''],
+            ['Löss', '黄土（ロス）', '土壌関連', ''],
+            ['Loess', '英語：ロアス', '土壌関連', ''],
+            ['Glimmerschiefer', '結晶片岩（グリマシーファ）', '土壌関連', ''],
+            ['Gneis', '片麻岩（グナイス）', '土壌関連', ''],
+            ['Phyllit', '千枚岩（フィリット）', '土壌関連', ''],
+            ['Quarzit', '珪岩（クワツィット）', '土壌関連', ''],
+            ['Granit', '花崗岩（グラニット）', '土壌関連', ''],
+            ['Porphyr', '斑岩（ポルフィル）', '土壌関連', ''],
+            ['porphyry', '英語：ポーフィリー', '土壌関連', ''],
+            ['Urmeer', '原始の海', '土壌関連', ''],
+            ['Korallenriff', 'サンゴ礁', '土壌関連', ''],
+            ['Erosion', '侵食', '土壌関連', ''],
+            ['Sandstein', '砂岩', '土壌関連', ''],
+            ['Basalt', '玄武岩', '土壌関連', ''],
+            ['Tuff', '凝灰岩（ぎょうかいがん、タフ）', '土壌関連', ''],
+            ['Kaolin', 'カオリン', '土壌関連', ''],
+            ['Phonolith', '響岩（きょうがん）', '土壌関連', ''],
+            ['phonolite', '英語：フォノライト', '土壌関連', ''],
+            ['Sand', '砂', '土壌関連', ''],
+            ['Diabas', 'ドレライト', '土壌関連', ''],
+            ['Mosel', 'モーゼル', '地域', ''],
+            ['Saar', 'ザール', '地域', ''],
+            ['Ruwer', 'ルーア', '地域', ''],
+            ['Nahe', 'ナーエ', '地域', ''],
+            ['Franken', 'フランケン', '地域', ''],
+            ['Württemberg', 'ヴュルテンベルク', '地域', ''],
+            ['Rheingau', 'ラインガウ', '地域', ''],
+            ['Rheinhessen', 'ラインヘッセン', '地域', ''],
+            ['Pfalz', 'ファルツ', '地域', ''],
+            ['Baden', 'バーデン', '地域', ''],
+            ['Hessische Bergstraße', 'ヘッシッシェ・ベルクシュトラーセ', '地域', ''],
+            ['Mittelrhein', 'ミッテルライン', '地域', ''],
+            ['Ahr', 'アール', '地域', ''],
+            ['Saale-Unstrut', 'ザーレ・ウンストルート', '地域', ''],
+            ['Sachsen', 'ザクセン', '地域', ''],
         ];
 
         function init() {
+            setCategory();
             viewWortList();
         }
 
@@ -52,10 +109,37 @@
             return document.getElementById(id);
         }
 
+        function setCategory() {
+            let cSet = new Set()
+            for (let wort of WORT_LIST) {
+                cSet.add(wort[2]);
+                cSet.add(wort[3]);
+            }
+            let option = document.createElement('option');
+            option.value = '';
+            option.text = '全て';
+            getEBI('category').appendChild(option);
+            for (let c of cSet) {
+                if (c) {
+                    let option = document.createElement('option');
+                    option.value = c;
+                    option.text = c;
+                    getEBI('category').appendChild(option);
+                }
+            }
+            getEBI('category').addEventListener('change', viewWortList);
+        }
+
         function viewWortList() {
             let ttb = getEBI('ttb');
             ttb.innerHTML = '';
+            let c = getEBI('category').value;
             for (let wort of WORT_LIST) {
+                if (c) {
+                    if (c != wort[2] && c != wort[3]) {
+                        continue;
+                    }
+                }
                 let tr = document.createElement('tr');
                 let td1 = document.createElement('td');
                 td1.innerText = wort[0];
@@ -64,6 +148,7 @@
                 td2.innerText = wort[1];
                 tr.appendChild(td2);
                 let td3 = document.createElement('td');
+                td3.classList.add('btn');
                 let btn = document.createElement('button');
                 btn.innerText = 'Copy';
                 btn.setAttribute('data-wort', wort[0]);
@@ -105,7 +190,27 @@
         window.addEventListener("load", init);
     </script>
     <style>
+        * {
+            font-size: 12pt;
+            font-family: monospace;
+        }
+
         #main {
+            max-width: 600px;
+            margin-top: 3em;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+        }
+
+        #head {
             max-width: 600px;
             margin: 0 auto;
         }
@@ -154,10 +259,29 @@
         tr {
             height: 2em;
         }
+
+        tr:nth-child(odd) {
+            background-color: #eeeeee;
+        }
+
+        td.btn {
+            width: 1%;
+        }
+
+        select {
+            width: 100%;
+            height: 2em;
+            margin: 0.5em 0;
+        }
     </style>
 </head>
 
 <body>
+    <header>
+        <div id="head">
+            <select id="category"></select>
+        </div>
+    </header>
     <div id="main">
         <table class="tt">
             <tbody id="ttb">
