@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wort</title>
+    <script>
+        const WORT_LIST = [
+            ['Riesling', 'リースリング', '品種', '白（Weiß）'],
+            ['Silvaner', 'ジルヴァーナー', '品種', '白（Weiß）'],
+            ['Sylvaner', 'ジルヴァーナー', '品種', '白（Weiß）'],
+            ['Müller-Thurgau', 'ミュラー・トゥルガウ', '品種', '白（Weiß）'],
+            ['MüllerThurgau', 'ミュラー・トゥルガウ', '品種', '白（Weiß）'],
+            ['Rivaner', 'リヴァーナー', '品種', '白（Weiß）'],
+            ['Gewürztraminer', 'ゲヴュルツトラミーナ', '品種', '白（Weiß）'],
+            ['Weißburgunder', 'ヴァイスブルグンダー', '品種', '白（Weiß）'],
+            ['Pinot blanc', 'フランス：ピノ・ブラン', '品種', '白（Weiß）'],
+            ['Pinot bianco', 'イタリア：ピノ・ブランコ', '品種', '白（Weiß）'],
+            ['Grauburgunder', 'グラウブルグンダー', '品種', '白（Weiß）'],
+            ['Pinot Gris', 'フランス：ピノ・グリ', '品種', '白（Weiß）'],
+            ['Elbling', 'エルプリング', '品種', '白（Weiß）'],
+            ['Scheurebe', 'ショイレーベ', '品種', '白（Weiß）'],
+            ['SauvignonBlanc', 'ソーヴィニヨン・ブラン', '品種', '白（Weiß）'],
+            ['Bacchus', 'バッフス', '品種', '白（Weiß）'],
+            ['Rieslaner', 'リースラーナ', '品種', '白（Weiß）'],
+            ['Chardonnay', 'シャルドネ', '品種', '白（Weiß）'],
+            ['Auxerrois', 'オーセロア', '品種', '白（Weiß）'],
+            ['Kerner', 'ケルナー', '品種', '白（Weiß）'],
+            ['Gutedel', 'グートエーデル', '品種', '白（Weiß）'],
+            ['Liebfrauenmilch', 'リープフラウミルヒ', '品種', '白（Weiß）'],
+            ['Spätburgunder', 'シュペートブルグンダー', '品種', '赤（Rot）'],
+            ['Pinot Noir', 'フランス：ピノ・ノワール', '品種', '赤（Rot）'],
+            ['Dornfelder', 'ドルンフェルダー', '品種', '赤（Rot）'],
+            ['Portugieser', 'ポルトギーザー', '品種', '赤（Rot）'],
+            ['Trollinger', 'トロリンガー', '品種', '赤（Rot）'],
+            ['Schwarzriesling', 'シュヴァルツリースリング', '品種', '赤（Rot）'],
+            ['Pinot Meunier', 'フランス：ピノ・ムニエ', '品種', '赤（Rot）'],
+            ['Lemberger', 'レンベルガー', '品種', '赤（Rot）'],
+            ['Regent', 'レゲント', '品種', '赤（Rot）'],
+            ['Saint Laurent', 'ザンクト・ラウレント', '品種', '赤（Rot）'],
+            ['Domina', 'ドミナ', '品種', '赤（Rot）'],
+            ['Heroldrebe', 'ヘロルドレーベ', '品種', '赤（Rot）'],
+        ];
+
+        function init() {
+            viewWortList();
+        }
+
+        function getEBI(id) {
+            return document.getElementById(id);
+        }
+
+        function viewWortList() {
+            let ttb = getEBI('ttb');
+            ttb.innerHTML = '';
+            for (let wort of WORT_LIST) {
+                let tr = document.createElement('tr');
+                let td1 = document.createElement('td');
+                td1.innerText = wort[0];
+                tr.appendChild(td1);
+                let td2 = document.createElement('td');
+                td2.innerText = wort[1];
+                tr.appendChild(td2);
+                let td3 = document.createElement('td');
+                let btn = document.createElement('button');
+                btn.innerText = 'Copy';
+                btn.setAttribute('data-wort', wort[0]);
+                btn.addEventListener('click', copyWort);
+                td3.appendChild(btn);
+                tr.appendChild(td3);
+                ttb.appendChild(tr);
+            }
+        }
+
+        function copyWort() {
+            let wort = this.getAttribute('data-wort');
+            if (wort) {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(wort);
+                    showToast("「" + wort + "」<br>をクリップボートにコピーしました。");
+                }
+            }
+        }
+
+        function showToast(msg) {
+            let toast = getEBI("toast");
+            toast.innerHTML = msg;
+            let ww = document.body.offsetWidth;
+            let dw = toast.getBoundingClientRect().width;
+            let lp = ((ww - dw) / 2) + "px";
+            console.log(ww, dw, lp);
+            toast.style.left = lp;
+            let ret = toast.classList.contains('show');
+            if (!ret) {
+                toast.classList.add('show');
+                setTimeout(function () {
+                    toast.innerHTML = "";
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        window.addEventListener("load", init);
+    </script>
+    <style>
+        #main {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #toast {
+            visibility: hidden;
+            z-index: 999;
+            background-color: gray;
+            color: white;
+            padding: 12px;
+            border-radius: 12pt;
+            text-align: center;
+            position: fixed;
+            top: 3em;
+        }
+
+        #toast.show {
+            animation: anime 3s ease 1 normal;
+        }
+
+        @keyframes anime {
+            0% {
+                visibility: visible;
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                visibility: hidden;
+                opacity: 0;
+            }
+
+        }
+
+        .tt {
+            width: 100%;
+        }
+
+        tr {
+            height: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <table class="tt">
+            <tbody id="ttb">
+            </tbody>
+        </table>
+    </div>
+    <div id="toast"></div>
+</body>
+
+</html>
