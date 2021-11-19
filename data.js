@@ -151,7 +151,7 @@ var event_data = [
             ["tab", "5) 2019er VOM KORALLENRIEF Chardonnay D.Q trocken"],
             ["rtab right", "Weingut Gres / Rheinhessen"],
             ["br", ""],
-            ["tab", "6) 2018er LÄDLES Trollinger D.Q trocken"],
+            ["tab", "6) 2018er RÄDLES Trollinger D.Q trocken"],
             ["rtab right", "Weingut Wöhrwag / Württemberg"],
             ["br", ""],
             ["tab", "7) 2012er Saarburger Rausch Riesling QbA feinherb Diabas"],
