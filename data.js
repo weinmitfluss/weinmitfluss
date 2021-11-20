@@ -148,7 +148,7 @@ var event_data = [
             ["tab", "4) 1983er Bernkasteler Badstube Riesling Spätlese"],
             ["rtab right", "Weingut E.Prüm / Mosel"],
             ["br", ""],
-            ["tab", "5) 2019er VOM KORALLENRIEF Chardonnay D.Q trocken"],
+            ["tab", "5) 2019er VOM KORALLENRIFF Chardonnay D.Q trocken"],
             ["rtab right", "Weingut Gres / Rheinhessen"],
             ["br", ""],
             ["tab", "6) 2018er RÄDLES Trollinger D.Q trocken"],
