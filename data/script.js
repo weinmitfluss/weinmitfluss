@@ -20,21 +20,29 @@ function init() {
 }
 
 function loadData() {
-    let TRIER_DATA_HASH = {};
-    for (let i = TRIER_DATA.length - 1; i >= 0; i--) {
-        let data = TRIER_DATA[i];
-        if (!TRIER_DATA_HASH[data[0]]) {
-            TRIER_DATA_HASH[data[0]] = {
-                t: [null, null, null, null, null, null, null, null, null, null, null, null],
-                n: [null, null, null, null, null, null, null, null, null, null, null, null],
-                s: [null, null, null, null, null, null, null, null, null, null, null, null],
-            };
-        }
-        TRIER_DATA_HASH[data[0]].t[data[1] - 1] = parseFloat(data[2].replaceAll(',', '.'));
-        TRIER_DATA_HASH[data[0]].n[data[1] - 1] = parseFloat(data[4].replaceAll(',', '.'));
-        TRIER_DATA_HASH[data[0]].s[data[1] - 1] = parseFloat(data[6].replaceAll(',', '.'));
+    let DATA = {
+        'Trier': TRIER_DATA,
+        'Frankfurt': FRANKFURT_DATA,
+        'Würzburg': WURZBURG_DATA,
     }
-    DATA_HASH['Trier'] = TRIER_DATA_HASH;
+    for (let area in DATA) {
+        console.log(area);
+        let dataHash = {};
+        for (let i = DATA[area].length - 1; i >= 0; i--) {
+            let data = DATA[area][i];
+            if (!dataHash[data[0]]) {
+                dataHash[data[0]] = {
+                    t: [null, null, null, null, null, null, null, null, null, null, null, null],
+                    n: [null, null, null, null, null, null, null, null, null, null, null, null],
+                    s: [null, null, null, null, null, null, null, null, null, null, null, null],
+                };
+            }
+            dataHash[data[0]].t[data[1] - 1] = parseFloat(data[2].replaceAll(',', '.'));
+            dataHash[data[0]].n[data[1] - 1] = parseFloat(data[4].replaceAll(',', '.'));
+            dataHash[data[0]].s[data[1] - 1] = parseFloat(data[6].replaceAll(',', '.'));
+        }
+        DATA_HASH[area] = dataHash;
+    }
 }
 
 function setArea() {
