@@ -35,7 +35,6 @@ function loadData() {
         TRIER_DATA_HASH[data[0]].s[data[1] - 1] = parseFloat(data[6].replaceAll(',', '.'));
     }
     DATA_HASH['Trier'] = TRIER_DATA_HASH;
-    DATA_HASH['Trier2'] = TRIER_DATA_HASH;
 }
 
 function setArea() {
