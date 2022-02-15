@@ -67,8 +67,8 @@ function toggleYear(event) {
                 cnt++;
             }
         }
-        if (cnt >= 6) {
-            alert('最大6までしか選べません。');
+        if (cnt >= SELECT_MAX) {
+            alert('最大' + SELECT_MAX + 'までしか選べません。');
         } else {
             event.target.classList.add('checkYear');
             selectYears();
@@ -94,8 +94,10 @@ function selectYears() {
     }
 }
 
-const BACK_GROUND_COLORS = ['#FF4B00', '#005AFF', '#03AF7A', '#4DC4FF', '#F6AA00', '#FFF100'];
+const BACK_GROUND_COLORS = ['rgba(255,75,0,0.8)', 'rgba(0,90,255,0.8)', 'rgba(3,175,122,0.8)'
+    , 'rgba(77,196,255,0.8)', 'rgba(246,170,0,0.8)', 'rgba(255,241,0,0.8)'];
 const LABELS = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+const SELECT_MAX = BACK_GROUND_COLORS.length;
 
 var DATA_HASH = {};
 var tChart = null;
@@ -137,7 +139,7 @@ function createChart(years, data) {
             };
             let sdata = {
                 label: year.toString(),
-                data: data[year].n,
+                data: data[year].s,
                 backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length]
             };
             tSet.push(tdata);
