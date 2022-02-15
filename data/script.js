@@ -28,6 +28,7 @@ function loadData() {
     for (let area in DATA) {
         console.log(area);
         let dataHash = {};
+        dataHash.a = area;
         for (let i = DATA[area].length - 1; i >= 0; i--) {
             let data = DATA[area][i];
             if (!dataHash[data[0]]) {
@@ -102,7 +103,9 @@ function selectYears() {
     }
 }
 
-const BACK_GROUND_COLORS = ['rgba(255,75,0,0.8)', 'rgba(0,90,255,0.8)', 'rgba(3,175,122,0.8)'
+const BACK_GROUND_COLORS = ['rgba(255,75,0,0.5)', 'rgba(0,90,255,0.5)', 'rgba(3,175,122,0.5)'
+    , 'rgba(77,196,255,0.5)', 'rgba(246,170,0,0.5)', 'rgba(255,241,0,0.5)'];
+const BACK_GROUND_COLORS2 = ['rgba(255,75,0,0.8)', 'rgba(0,90,255,0.8)', 'rgba(3,175,122,0.8)'
     , 'rgba(77,196,255,0.8)', 'rgba(246,170,0,0.8)', 'rgba(255,241,0,0.8)'];
 const LABELS = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 const SELECT_MAX = BACK_GROUND_COLORS.length;
@@ -136,23 +139,47 @@ function createChart(years, data) {
     for (let year of years) {
         if (data[year]) {
             let tdata = {
-                label: year.toString(),
+                label: data.a + "\n" + year.toString(),
                 data: data[year].t,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length]
+                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
             };
             let ndata = {
-                label: year.toString(),
+                label: data.a + "\n" + year.toString(),
                 data: data[year].n,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length]
+                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
             };
             let sdata = {
-                label: year.toString(),
+                label: data.a + "\n" + year.toString(),
                 data: data[year].s,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length]
+                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                yAxisID: "y1",
             };
+            let sumdata = [];
+            let sum = 0.0;
+            for (let val of data[year].s) {
+                console.log(val);
+                if (val) {
+                    sum += val;
+                    sum = Math.round(sum * 100) / 100;
+                    sumdata.push(sum);
+                } else {
+                    sumdata.push(val);
+                }
+            }
+            console.log(data[year].s);
+            console.log(sumdata);
+            let ldata = {
+                label: data.a + "\n" + year.toString(),
+                data: sumdata,
+                borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                yAxisID: "y2",
+                type: 'line'
+            }
             tSet.push(tdata);
             nSet.push(ndata);
             sSet.push(sdata);
+            sSet.push(ldata);
             p++;
         }
     }
@@ -160,11 +187,11 @@ function createChart(years, data) {
     createTable('tTable', tSet);
     nChart = drawChart('nChart', nSet);
     createTable('nTable', nSet);
-    sChart = drawChart('sChart', sSet);
+    sChart = drawChart2('sChart', sSet);
     createTable('sTable', sSet);
 }
 
-function drawChart(id, set, title) {
+function drawChart(id, set) {
     return new Chart(document.getElementById(id).getContext('2d'),
         {
             type: 'bar',
@@ -174,6 +201,42 @@ function drawChart(id, set, title) {
             },
             options: {
                 responsive: true,
+                animation: {
+                    duration: 0,
+                },
+                hover: {
+                    animationDuration: 0,
+                },
+                responsiveAnimationDuration: 0,
+            }
+        });
+}
+
+function drawChart2(id, set) {
+    return new Chart(document.getElementById(id).getContext('2d'),
+        {
+            type: 'bar',
+            data: {
+                labels: LABELS,
+                datasets: set,
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 0,
+                },
+                hover: {
+                    animationDuration: 0,
+                },
+                responsiveAnimationDuration: 0,
+                scales: {
+                    y1: {
+                        position: 'left',
+                    },
+                    y2: {
+                        position: 'right',
+                    },
+                }
             }
         });
 }
