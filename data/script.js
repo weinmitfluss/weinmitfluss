@@ -156,13 +156,16 @@ function createChart(years, data) {
     createTable('sTable', sSet);
 }
 
-function drawChart(id, set) {
+function drawChart(id, set, title) {
     return new Chart(document.getElementById(id).getContext('2d'),
         {
             type: 'bar',
             data: {
                 labels: LABELS,
                 datasets: set,
+            },
+            options: {
+                responsive: true,
             }
         });
 }
