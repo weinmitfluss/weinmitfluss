@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./data.js"></script>
+    <script src="./script.js"></script>
+</head>
+
+<body>
+    <select id="area"></select>
+    <br>
+    <br>
+    <div id="years">
+    </div>
+    <hr>
+    <div id="chart">
+        <details open>
+            <summary>気温（Temperatur）</summary>
+            <canvas id="tChart"></canvas>
+            <table>
+                <thead id="tHead">
+                </thead>
+                <tbody id="tTable">
+                </tbody>
+            </table>
+        </details>
+        <hr>
+        <details open>
+            <summary>降水量（Niederschlag）</summary>
+            <canvas id="nChart"></canvas>
+            <table>
+                <thead id="nHead">
+                </thead>
+                <tbody id="nTable">
+                </tbody>
+            </table>
+        </details>
+        <hr>
+        <details open>
+            <summary>日照時間（Sonnenschein）</summary>
+            <canvas id="sChart"></canvas>
+            <table>
+                <thead id="sHead">
+                </thead>
+                <tbody id="sTable">
+                </tbody>
+            </table>
+        </details>
+        <hr>
+    </div>
+    <div>
+        <h3>参考</h3>
+        <cite>データ：<a href="https://www.wetterkontor.de/de/wetter/deutschland/monatswerte.asp" target="_data">
+                Monats- und Jahreswerte für Deutschland </a></cite>
+        <br>
+        <cite>グラフ：<a href="https://www.chartjs.org/" target="_chart">Chart.js</a></cite>
+        <br>
+        <cite>4~6色（カラーユニバーサルデザイン）：<a href="https://contents-open.hatenablog.com/entry/2021/08/19/231157"
+                target="_color">
+                見やすいグラフの色分けをまとめました（カラーコード）</a></cite>
+    </div>
+</body>
+
+</html>
