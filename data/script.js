@@ -54,6 +54,9 @@ function setArea() {
         years.firstChild.remove();
     }
     for (let year in data) {
+        if (isNaN(year)) {
+            continue;
+        }
         let span = document.createElement('span');
         span.innerText = year.toString();
         span.classList.add('year');
