@@ -1,6 +1,6 @@
 function init() {
     loadData();
-    let select = document.getElementById('area');
+    let select = document.getElementById('area1');
     let value = null;
     for (let area in DATA_HASH) {
         let option = document.createElement('option');
@@ -14,6 +14,7 @@ function init() {
     select.value = value;
     select.addEventListener('change', setArea);
     setArea();
+    document.getElementById('area2').addEventListener('change', setArea2);
     setHead('tHead');
     setHead('nHead');
     setHead('sHead');
@@ -47,8 +48,8 @@ function loadData() {
 }
 
 function setArea() {
-    let area = document.getElementById('area').value;
-    var data = DATA_HASH[area];
+    let area1 = document.getElementById('area1').value;
+    var data = DATA_HASH[area1];
     let years = document.getElementById('years');
     while (years.childNodes.length > 0) {
         years.firstChild.remove();
@@ -63,8 +64,34 @@ function setArea() {
         span.addEventListener('click', toggleYear);
         years.appendChild(span);
     }
+    let select = document.getElementById('area2');
+    while (select.childNodes.length > 0) {
+        select.firstChild.remove();
+    }
+    let option = document.createElement('option');
+    option.value = '';
+    option.innerText = '-----';
+    select.appendChild(option);
+    for (let area in DATA_HASH) {
+        if (area != area1) {
+            let option = document.createElement('option');
+            option.value = area;
+            option.innerText = area;
+            select.appendChild(option);
+        }
+    }
+    select.value = '';
     selectYears();
 }
+
+function setArea2() {
+    let years = document.getElementById('years');
+    for (let year of years.childNodes) {
+        year.classList.remove('checkYear');
+    }
+    selectYears();
+}
+
 
 function toggleYear(event) {
     let check = event.target.classList.contains('checkYear');
@@ -79,8 +106,13 @@ function toggleYear(event) {
                 cnt++;
             }
         }
-        if (cnt >= SELECT_MAX) {
-            alert('最大' + SELECT_MAX + 'までしか選べません。');
+        let max = SELECT_MAX;
+        let area2 = document.getElementById('area2').value;
+        if (area2) {
+            max = max / 2;
+        }
+        if (cnt >= max) {
+            alert('最大' + max + 'までしか選べません。');
         } else {
             event.target.classList.add('checkYear');
             selectYears();
@@ -89,7 +121,6 @@ function toggleYear(event) {
 }
 
 function selectYears() {
-    let area = document.getElementById('area').value;
     let years = [];
     let yearsList = document.getElementById('years');
     for (let year of yearsList.querySelectorAll('span')) {
@@ -98,7 +129,13 @@ function selectYears() {
         }
     }
     if (years.length > 0) {
-        createChart(years, DATA_HASH[area]);
+        let area1 = document.getElementById('area1').value;
+        let area2 = document.getElementById('area2').value;
+        let datahash = null;
+        if (area2) {
+            datahash = DATA_HASH[area2];
+        }
+        createChart(years, DATA_HASH[area1], datahash);
         document.getElementById('chart').style.display = 'block';
     } else {
         clearChart();
@@ -133,57 +170,63 @@ function clearChart() {
     document.getElementById('sTable').innerHTML = '';
 }
 
-function createChart(years, data) {
+function createChart(years, data1, data2) {
     clearChart();
     let tSet = [];
     let nSet = [];
     let sSet = [];
     let p = 0;
+    let dataList = [];
+    if (data1) {
+        dataList.push(data1);
+    }
+    if (data2) {
+        dataList.push(data2);
+    }
     for (let year of years) {
-        if (data[year]) {
-            let tdata = {
-                label: data.a + "\n" + year.toString(),
-                data: data[year].t,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-            };
-            let ndata = {
-                label: data.a + "\n" + year.toString(),
-                data: data[year].n,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-            };
-            let sdata = {
-                label: data.a + "\n" + year.toString(),
-                data: data[year].s,
-                backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-                yAxisID: "y1",
-            };
-            let sumdata = [];
-            let sum = 0.0;
-            for (let val of data[year].s) {
-                console.log(val);
-                if (val) {
-                    sum += val;
-                    sum = Math.round(sum * 100) / 100;
-                    sumdata.push(sum);
-                } else {
-                    sumdata.push(val);
+        for (let data of dataList) {
+            if (data[year]) {
+                let tdata = {
+                    label: data.a + "\n" + year.toString(),
+                    data: data[year].t,
+                    backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                };
+                let ndata = {
+                    label: data.a + "\n" + year.toString(),
+                    data: data[year].n,
+                    backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                };
+                let sdata = {
+                    label: data.a + "\n" + year.toString(),
+                    data: data[year].s,
+                    backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                    yAxisID: "y1",
+                };
+                let sumdata = [];
+                let sum = 0.0;
+                for (let val of data[year].s) {
+                    if (val) {
+                        sum += val;
+                        sum = Math.round(sum * 100) / 100;
+                        sumdata.push(sum);
+                    } else {
+                        sumdata.push(val);
+                    }
                 }
+                let ldata = {
+                    label: data.a + "\n" + year.toString(),
+                    data: sumdata,
+                    borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                    backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                    yAxisID: "y2",
+                    type: 'line'
+                }
+                tSet.push(tdata);
+                nSet.push(ndata);
+                sSet.push(sdata);
+                sSet.push(ldata);
+                p++;
             }
-            console.log(data[year].s);
-            console.log(sumdata);
-            let ldata = {
-                label: data.a + "\n" + year.toString(),
-                data: sumdata,
-                borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-                backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
-                yAxisID: "y2",
-                type: 'line'
-            }
-            tSet.push(tdata);
-            nSet.push(ndata);
-            sSet.push(sdata);
-            sSet.push(ldata);
-            p++;
         }
     }
     tChart = drawChart('tChart', tSet);
