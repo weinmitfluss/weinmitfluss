@@ -25,6 +25,15 @@ function loadData() {
         'Trier': TRIER_DATA,
         'Frankfurt': FRANKFURT_DATA,
         'Würzburg': WURZBURG_DATA,
+        'Stuttgart': STUTTGART_DATA,
+        'Geisenheim': GEISENHEIM_DATA,
+        'Alzey': ALZEY_DATA,
+        'Bad Kreuznach (an der Nahe)': NAHE_DATA,
+        'Worms': WORMS_DATA,
+        'Leipzig': LEIPZIG_DATA,
+        'Bad Neuenahr-Ahrweiler': BAD_DATA,
+        'Freiburg': FREIBURG_DATA,
+        'Dresden-Hosterwitz': DRESDEN_DATA,
     }
     for (let area in DATA) {
         console.log(area);
