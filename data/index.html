@@ -14,7 +14,8 @@
 
 <body>
     <div class="ort">
-        <span>&nbsp;場所(Ort)：</span><select id="area1"></select> <span>-</span> <select id="area2"></select>
+        <span class="nowrap">&nbsp;場所(Ort)：<select id="area1" title="[taggen]ort"></select></span><span class="nowrap">
+            - <select id="area2" title="[taggen]ort"></select></span>
     </div>
     <div id="years">
     </div>
@@ -22,35 +23,41 @@
     <div id="chart">
         <details open>
             <summary>気温（Temperatur）</summary>
-            <canvas id="tChart"></canvas>
-            <table>
-                <thead id="tHead">
-                </thead>
-                <tbody id="tTable">
-                </tbody>
-            </table>
+            <canvas id="tChart" class="chart"></canvas>
+            <div class="table">
+                <table class="data">
+                    <thead id="tHead">
+                    </thead>
+                    <tbody id="tTable">
+                    </tbody>
+                </table>
+            </div>
         </details>
         <hr>
         <details open>
             <summary>降水量（Niederschlag）</summary>
-            <canvas id="nChart"></canvas>
-            <table>
-                <thead id="nHead">
-                </thead>
-                <tbody id="nTable">
-                </tbody>
-            </table>
+            <canvas id="nChart" class="chart"></canvas>
+            <div class="table">
+                <table class="data">
+                    <thead id="nHead">
+                    </thead>
+                    <tbody id="nTable">
+                    </tbody>
+                </table>
+            </div>
         </details>
         <hr>
         <details open>
             <summary>日照時間（Sonnenschein）</summary>
-            <canvas id="sChart"></canvas>
-            <table>
-                <thead id="sHead">
-                </thead>
-                <tbody id="sTable">
-                </tbody>
-            </table>
+            <canvas id="sChart" class="chart"></canvas>
+            <div class="table">
+                <table class="data">
+                    <thead id="sHead">
+                    </thead>
+                    <tbody id="sTable">
+                    </tbody>
+                </table>
+            </div>
         </details>
         <hr>
     </div>

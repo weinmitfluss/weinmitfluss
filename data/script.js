@@ -22,18 +22,20 @@ function init() {
 
 function loadData() {
     let DATA = {
-        'Trier': TRIER_DATA,
-        'Frankfurt': FRANKFURT_DATA,
-        'Würzburg': WURZBURG_DATA,
-        'Stuttgart': STUTTGART_DATA,
-        'Geisenheim': GEISENHEIM_DATA,
-        'Alzey': ALZEY_DATA,
-        'Bad Kreuznach (an der Nahe)': NAHE_DATA,
-        'Worms': WORMS_DATA,
-        'Leipzig': LEIPZIG_DATA,
-        'Bad Neuenahr-Ahrweiler': BAD_DATA,
-        'Freiburg': FREIBURG_DATA,
-        'Dresden-Hosterwitz': DRESDEN_DATA,
+        '[Ahr] Bad Neuenahr-Ahrweiler': BAD_N_DATA,
+        '[Baden] Freiburg': FREIBURG_DATA,
+        '[Franken] Würzburg': WURZBURG_DATA,
+        '[Hess.Bergstrasse] Frankfurt': FRANKFURT_DATA,
+        '[Mittelrhein] Bonn/Roleber': BONN_DATA,
+        '[Mosel] Trier': TRIER_DATA,
+        '[Nahe] Bad Kreuznach (an der Nahe)': NAHE_DATA,
+        '[Pfalz(Nord)] Worms': WORMS_DATA,
+        '[Pfalz(Süd)] Bad Bergzabern (Südpfalz)': BAD_B_DATA,
+        '[Rheingau] Geisenheim': GEISENHEIM_DATA,
+        '[Rheinhessen] Alzey': ALZEY_DATA,
+        '[Saale-Unstrut] Leipzig': LEIPZIG_DATA,
+        '[Sachsen] Dresden-Hosterwitz': DRESDEN_DATA,
+        '[Württemberg] Stuttgart': STUTTGART_DATA,
     }
     for (let area in DATA) {
         console.log(area);
@@ -223,7 +225,7 @@ function createChart(years, data1, data2) {
                     }
                 }
                 let ldata = {
-                    label: data.a + "\n" + year.toString(),
+                    label: '',
                     data: sumdata,
                     borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
@@ -243,7 +245,7 @@ function createChart(years, data1, data2) {
     nChart = drawChart('nChart', nSet);
     createTable('nTable', nSet);
     sChart = drawChart2('sChart', sSet);
-    createTable('sTable', sSet);
+    createTable2('sTable', sSet);
 }
 
 function drawChart(id, set) {
@@ -256,6 +258,7 @@ function drawChart(id, set) {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 animation: {
                     duration: 0,
                 },
@@ -277,6 +280,7 @@ function drawChart2(id, set) {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 animation: {
                     duration: 0,
                 },
@@ -291,6 +295,15 @@ function drawChart2(id, set) {
                     y2: {
                         position: 'right',
                     },
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            filter: function (items) {
+                                return items.text != '';
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -302,10 +315,36 @@ function createTable(id, set) {
     for (let line of set) {
         let tr = document.createElement('tr');
         let td = document.createElement('td');
+        td.classList.add('area');
         td.innerText = line.label;
         tr.appendChild(td);
         for (let value of line.data) {
             let td = document.createElement('td');
+            td.classList.add('data');
+            td.innerText = value;
+            tr.appendChild(td);
+        }
+        element.appendChild(tr);
+    }
+}
+
+function createTable2(id, set) {
+    let element = document.getElementById(id);
+    element.innerHTML = '';
+    for (let i = 0; i < set.length; i++) {
+        let line = set[i];
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        td.classList.add('area');
+        if (i % 2 == 1) {
+            td.innerText = set[i - 1].label;
+        } else {
+            td.innerText = line.label;
+        }
+        tr.appendChild(td);
+        for (let value of line.data) {
+            let td = document.createElement('td');
+            td.classList.add('data');
             td.innerText = value;
             tr.appendChild(td);
         }
@@ -318,10 +357,12 @@ function setHead(id) {
     element.innerHTML = '';
     let tr = document.createElement('tr');
     let th = document.createElement('th');
-    th.innerText = 'Jahr';
+    th.classList.add('data');
+    th.innerText = "[taggen]ort\nJahr";
     tr.appendChild(th);
     for (let label of LABELS) {
         let th = document.createElement('th');
+        th.classList.add('data');
         th.innerText = label;
         tr.appendChild(th);
     }
