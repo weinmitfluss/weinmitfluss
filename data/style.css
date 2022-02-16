@@ -24,6 +24,11 @@ details {
     cursor: pointer;
 }
 
+select {
+    max-width: 50vw;
+    text-overflow: ellipsis;
+}
+
 div.table {
     max-width: 100vw;
     overflow: auto;
