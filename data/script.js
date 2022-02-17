@@ -208,7 +208,7 @@ function createChart(years, data1, data2) {
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                 };
                 let sdata = {
-                    label: data.a + "\n" + year.toString(),
+                    label: '',
                     data: data[year].s,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     yAxisID: "y1",
@@ -245,7 +245,7 @@ function createChart(years, data1, data2) {
     nChart = drawChart('nChart', nSet);
     createTable('nTable', nSet);
     sChart = drawChart2('sChart', sSet);
-    createTable('sTable', sSet);
+    createTable2('sTable', sSet);
 }
 
 function drawChart(id, set) {
@@ -258,7 +258,7 @@ function drawChart(id, set) {
             },
             options: {
                 responsive: true,
-                // maintainAspectRatio: false,
+                maintainAspectRatio: false,
                 animation: {
                     duration: 0,
                 },
@@ -280,7 +280,7 @@ function drawChart2(id, set) {
             },
             options: {
                 responsive: true,
-                // maintainAspectRatio: false,
+                maintainAspectRatio: false,
                 animation: {
                     duration: 0,
                 },
@@ -308,6 +308,30 @@ function createTable(id, set) {
         let td = document.createElement('td');
         td.classList.add('area');
         td.innerText = line.label;
+        tr.appendChild(td);
+        for (let value of line.data) {
+            let td = document.createElement('td');
+            td.classList.add('data');
+            td.innerText = value;
+            tr.appendChild(td);
+        }
+        element.appendChild(tr);
+    }
+}
+
+function createTable2(id, set) {
+    let element = document.getElementById(id);
+    element.innerHTML = '';
+    for (let i = 0; i < set.length; i++) {
+        let line = set[i];
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        td.classList.add('area');
+        if (i % 2 == 0) {
+            td.innerText = set[i + 1].label;
+        } else {
+            td.innerText = line.label;
+        }
         tr.appendChild(td);
         for (let value of line.data) {
             let td = document.createElement('td');
