@@ -208,7 +208,7 @@ function createChart(years, data1, data2) {
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                 };
                 let sdata = {
-                    label: '',
+                    label: data.a + "\n" + year.toString(),
                     data: data[year].s,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     yAxisID: "y1",
@@ -225,7 +225,7 @@ function createChart(years, data1, data2) {
                     }
                 }
                 let ldata = {
-                    label: data.a + "\n" + year.toString(),
+                    label: '',
                     data: sumdata,
                     borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
@@ -295,6 +295,15 @@ function drawChart2(id, set) {
                     y2: {
                         position: 'right',
                     },
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            filter: function (items) {
+                                return items.text != '';
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -327,8 +336,8 @@ function createTable2(id, set) {
         let tr = document.createElement('tr');
         let td = document.createElement('td');
         td.classList.add('area');
-        if (i % 2 == 0) {
-            td.innerText = set[i + 1].label;
+        if (i % 2 == 1) {
+            td.innerText = set[i - 1].label;
         } else {
             td.innerText = line.label;
         }
