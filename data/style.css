@@ -36,21 +36,29 @@ div.table {
     margin-right: auto;
 }
 
-table {
-    width: 84vw;
+table.data {
+    width: 100%;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
 }
 
-th {
+th.data {
     border: 1px solid gray;
 }
 
-td {
+td.area {
     border: 1px solid gray;
     text-align: center;
-    width: 7vw;
+    white-space: nowrap;
+    overflow: auto;
+    width: 18%;
+}
+
+td.data {
+    border: 1px solid gray;
+    text-align: center;
+    width: 6%;
 }
 
 #area {
