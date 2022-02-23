@@ -21,6 +21,7 @@ function init() {
 }
 
 function loadData() {
+    // キーは選択文字列：[tag] area
     let DATA = {
         '[Ahr] Bad Neuenahr-Ahrweiler': BAD_N_DATA,
         '[Baden] Freiburg': FREIBURG_DATA,
@@ -38,16 +39,15 @@ function loadData() {
         '[Württemberg] Stuttgart': STUTTGART_DATA,
     }
     for (let area in DATA) {
-        console.log(area);
         let dataHash = {};
         dataHash.a = area;
         for (let i = DATA[area].length - 1; i >= 0; i--) {
             let data = DATA[area][i];
             if (!dataHash[data[0]]) {
                 dataHash[data[0]] = {
-                    t: [null, null, null, null, null, null, null, null, null, null, null, null],
-                    n: [null, null, null, null, null, null, null, null, null, null, null, null],
-                    s: [null, null, null, null, null, null, null, null, null, null, null, null],
+                    t: [null, null, null, null, null, null, null, null, null, null, null, null], // 温度
+                    n: [null, null, null, null, null, null, null, null, null, null, null, null], // 降水量
+                    s: [null, null, null, null, null, null, null, null, null, null, null, null], // 日照時間
                 };
             }
             dataHash[data[0]].t[data[1] - 1] = parseFloat(data[2].replaceAll(',', '.'));
@@ -96,10 +96,7 @@ function setArea() {
 }
 
 function setArea2() {
-    let years = document.getElementById('years');
-    for (let year of years.childNodes) {
-        year.classList.remove('checkYear');
-    }
+    clearYears();
     selectYears();
 }
 
@@ -150,7 +147,6 @@ function selectYears() {
         document.getElementById('chart').style.display = 'block';
     } else {
         clearChart();
-        document.getElementById('chart').style.display = 'none';
     }
 }
 
@@ -179,6 +175,14 @@ function clearChart() {
     document.getElementById('tTable').innerHTML = '';
     document.getElementById('nTable').innerHTML = '';
     document.getElementById('sTable').innerHTML = '';
+    document.getElementById('chart').style.display = 'none';
+}
+
+function clearYears() {
+    let years = document.getElementById('years');
+    for (let year of years.childNodes) {
+        year.classList.remove('checkYear');
+    }
 }
 
 function createChart(years, data1, data2) {
@@ -207,26 +211,34 @@ function createChart(years, data1, data2) {
                     data: data[year].n,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                 };
+                let mdata = {
+                    label: '',
+                    data: acc(data[year].n),
+                    borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                    backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                    yAxisID: "y2",
+                    type: 'line'
+                }
                 let sdata = {
                     label: data.a + "\n" + year.toString(),
                     data: data[year].s,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     yAxisID: "y1",
                 };
-                let sumdata = [];
-                let sum = 0.0;
-                for (let val of data[year].s) {
-                    if (val) {
-                        sum += val;
-                        sum = Math.round(sum * 100) / 100;
-                        sumdata.push(sum);
-                    } else {
-                        sumdata.push(val);
-                    }
-                }
+                // let sumdata = [];
+                // let sum = 0.0;
+                // for (let val of data[year].s) {
+                //     if (val) {
+                //         sum += val;
+                //         sum = Math.round(sum * 100) / 100;
+                //         sumdata.push(sum);
+                //     } else {
+                //         sumdata.push(val);
+                //     }
+                // }
                 let ldata = {
                     label: '',
-                    data: sumdata,
+                    data: acc(data[year].s),
                     borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
                     yAxisID: "y2",
@@ -234,6 +246,7 @@ function createChart(years, data1, data2) {
                 }
                 tSet.push(tdata);
                 nSet.push(ndata);
+                nSet.push(mdata);
                 sSet.push(sdata);
                 sSet.push(ldata);
                 p++;
@@ -242,10 +255,26 @@ function createChart(years, data1, data2) {
     }
     tChart = drawChart('tChart', tSet);
     createTable('tTable', tSet);
-    nChart = drawChart('nChart', nSet);
-    createTable('nTable', nSet);
+    nChart = drawChart2('nChart', nSet);
+    createTable2('nTable', nSet);
     sChart = drawChart2('sChart', sSet);
     createTable2('sTable', sSet);
+    document.getElementById('chart').style.display = 'block';
+}
+
+function acc(data) {
+    let accdata = [];
+    let acc = 0.0;
+    for (let val of data) {
+        if (val) {
+            acc += val;
+            acc = Math.round(acc * 100) / 100;
+            accdata.push(acc);
+        } else {
+            accdata.push(val);
+        }
+    }
+    return accdata;
 }
 
 function drawChart(id, set) {
@@ -331,21 +360,37 @@ function createTable(id, set) {
 function createTable2(id, set) {
     let element = document.getElementById(id);
     element.innerHTML = '';
-    for (let i = 0; i < set.length; i++) {
-        let line = set[i];
+    // for (let i = 0; i < set.length; i++) {
+    //     let line = set[i];
+    //     let tr = document.createElement('tr');
+    //     let td = document.createElement('td');
+    //     td.classList.add('area');
+    //     if (i % 2 == 1) {
+    //         td.innerText = set[i - 1].label;
+    //     } else {
+    //         td.innerText = line.label;
+    //     }
+    //     tr.appendChild(td);
+    //     for (let value of line.data) {
+    //         let td = document.createElement('td');
+    //         td.classList.add('data');
+    //         td.innerText = value;
+    //         tr.appendChild(td);
+    //     }
+    //     element.appendChild(tr);
+    // }
+    for (let i = 0; i < set.length; i += 2) {
+        let line1 = set[i];
+        let line2 = set[i + 1];
         let tr = document.createElement('tr');
         let td = document.createElement('td');
         td.classList.add('area');
-        if (i % 2 == 1) {
-            td.innerText = set[i - 1].label;
-        } else {
-            td.innerText = line.label;
-        }
+        td.innerText = line1.label;
         tr.appendChild(td);
-        for (let value of line.data) {
+        for (let j = 0; j < line1.data.length; j++) {
             let td = document.createElement('td');
             td.classList.add('data');
-            td.innerText = value;
+            td.innerHTML = line1.data[j] + '<br>' + line2.data[j];
             tr.appendChild(td);
         }
         element.appendChild(tr);
