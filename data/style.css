@@ -24,6 +24,61 @@ details {
     cursor: pointer;
 }
 
+div.graph {
+    width: 98vw;
+    position: relative;
+}
+
+div.rt {
+    position: absolute;
+    top: 0;
+    right: 2vw;
+}
+
+div.on {
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    width: 2rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid gray;
+    background-color: rgba(0, 0, 255, 0.6);
+}
+
+div.on::after {
+    position: absolute;
+    content: "";
+    width: 40%;
+    height: 80%;
+    border-radius: 45%;
+    background-color: #ffffff;
+    top: 10%;
+    right: 6%;
+}
+
+div.off {
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    width: 2rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid gray;
+    background-color: rgba(128, 128, 128, 0.6);
+}
+
+div.off::after {
+    position: absolute;
+    content: "";
+    width: 40%;
+    height: 80%;
+    border-radius: 45%;
+    background-color: #ffffff;
+    top: 10%;
+    left: 6%;
+}
+
 select {
     max-width: 50vw;
     text-overflow: ellipsis;

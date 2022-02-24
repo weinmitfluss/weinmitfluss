@@ -21,46 +21,61 @@
     </div>
     <hr>
     <div id="chart">
-        <details open>
-            <summary>気温（Temperatur）</summary>
-            <canvas id="tChart" class="chart"></canvas>
-            <div class="table">
-                <table class="data">
-                    <thead id="tHead">
-                    </thead>
-                    <tbody id="tTable">
-                    </tbody>
-                </table>
+        <div class="graph">
+            <details open>
+                <summary>気温（Temperatur）</summary>
+                <canvas id="tChart" class="chart"></canvas>
+                <div class="table">
+                    <table class="data">
+                        <thead id="tHead">
+                        </thead>
+                        <tbody id="tTable">
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+            <div class="rt">
+                <div id="tsum" class="off"></div>
             </div>
-        </details>
+        </div>
         <hr>
-        <details open>
-            <summary>降水量（Niederschlag）</summary>
-            <canvas id="nChart" class="chart"></canvas>
-            <div class="table">
-                <table class="data">
-                    <thead id="nHead">
-                    </thead>
-                    <tbody id="nTable">
-                    </tbody>
-                </table>
+        <div class="graph">
+            <details open>
+                <summary>降水量（Niederschlag）</summary>
+                <canvas id="nChart" class="chart"></canvas>
+                <div class="table">
+                    <table class="data">
+                        <thead id="nHead">
+                        </thead>
+                        <tbody id="nTable">
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+            <div class="rt">
+                <div id="nsum" class="on"></div>
             </div>
-        </details>
+        </div>
         <hr>
-        <details open>
-            <summary>日照時間（Sonnenschein）</summary>
-            <canvas id="sChart" class="chart"></canvas>
-            <div class="table">
-                <table class="data">
-                    <thead id="sHead">
-                    </thead>
-                    <tbody id="sTable">
-                    </tbody>
-                </table>
+        <div class="graph">
+            <details open>
+                <summary>日照時間（Sonnenschein）</summary>
+                <canvas id="sChart" class="chart"></canvas>
+                <div class="table">
+                    <table class="data">
+                        <thead id="sHead">
+                        </thead>
+                        <tbody id="sTable">
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+            <div class="rt">
+                <div id="ssum" class="on"></div>
             </div>
-        </details>
-        <hr>
+        </div>
     </div>
+    <hr>
     <div>
         <details>
             <summary>参考サイト（Referenz）</summary>

@@ -18,6 +18,9 @@ function init() {
     setHead('tHead');
     setHead('nHead');
     setHead('sHead');
+    document.getElementById('tsum').addEventListener('click', toggleOnOff);
+    document.getElementById('nsum').addEventListener('click', toggleOnOff);
+    document.getElementById('ssum').addEventListener('click', toggleOnOff);
 }
 
 function loadData() {
@@ -56,6 +59,18 @@ function loadData() {
         }
         DATA_HASH[area] = dataHash;
     }
+}
+
+function toggleOnOff(event) {
+    let check = event.target.classList.contains('on');
+    if (check) {
+        event.target.classList.remove('on');
+        event.target.classList.add('off');
+    } else {
+        event.target.classList.remove('off');
+        event.target.classList.add('on');
+    }
+    selectYears();
 }
 
 function setArea() {
@@ -198,6 +213,9 @@ function createChart(years, data1, data2) {
     if (data2) {
         dataList.push(data2);
     }
+    let onT = document.getElementById('tsum').classList.contains('on');
+    let onN = document.getElementById('nsum').classList.contains('on');
+    let onS = document.getElementById('ssum').classList.contains('on');
     for (let year of years) {
         for (let data of dataList) {
             if (data[year]) {
@@ -206,18 +224,34 @@ function createChart(years, data1, data2) {
                     data: data[year].t,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                 };
+                tSet.push(tdata);
+                if (onT) {
+                    let sdata = {
+                        label: '',
+                        data: acc(data[year].t),
+                        borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                        backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                        yAxisID: "y2",
+                        type: 'line'
+                    }
+                    tSet.push(sdata);
+                }
                 let ndata = {
                     label: data.a + "\n" + year.toString(),
                     data: data[year].n,
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                 };
-                let mdata = {
-                    label: '',
-                    data: acc(data[year].n),
-                    borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-                    backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
-                    yAxisID: "y2",
-                    type: 'line'
+                nSet.push(ndata);
+                if (onN) {
+                    let sdata = {
+                        label: '',
+                        data: acc(data[year].n),
+                        borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                        backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                        yAxisID: "y2",
+                        type: 'line'
+                    }
+                    nSet.push(sdata);
                 }
                 let sdata = {
                     label: data.a + "\n" + year.toString(),
@@ -225,40 +259,43 @@ function createChart(years, data1, data2) {
                     backgroundColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
                     yAxisID: "y1",
                 };
-                // let sumdata = [];
-                // let sum = 0.0;
-                // for (let val of data[year].s) {
-                //     if (val) {
-                //         sum += val;
-                //         sum = Math.round(sum * 100) / 100;
-                //         sumdata.push(sum);
-                //     } else {
-                //         sumdata.push(val);
-                //     }
-                // }
-                let ldata = {
-                    label: '',
-                    data: acc(data[year].s),
-                    borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
-                    backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
-                    yAxisID: "y2",
-                    type: 'line'
-                }
-                tSet.push(tdata);
-                nSet.push(ndata);
-                nSet.push(mdata);
                 sSet.push(sdata);
-                sSet.push(ldata);
+                if (onS) {
+                    let sdata = {
+                        label: '',
+                        data: acc(data[year].s),
+                        borderColor: BACK_GROUND_COLORS[p % BACK_GROUND_COLORS.length],
+                        backgroundColor: BACK_GROUND_COLORS2[p % BACK_GROUND_COLORS2.length],
+                        yAxisID: "y2",
+                        type: 'line'
+                    }
+                    sSet.push(sdata);
+                }
                 p++;
             }
         }
     }
-    tChart = drawChart('tChart', tSet);
-    createTable('tTable', tSet);
-    nChart = drawChart2('nChart', nSet);
-    createTable2('nTable', nSet);
-    sChart = drawChart2('sChart', sSet);
-    createTable2('sTable', sSet);
+    if (onT) {
+        tChart = drawChart2('tChart', tSet);
+        createTable2('tTable', tSet);
+    } else {
+        tChart = drawChart('tChart', tSet);
+        createTable('tTable', tSet);
+    }
+    if (onN) {
+        nChart = drawChart2('nChart', nSet);
+        createTable2('nTable', nSet);
+    } else {
+        nChart = drawChart('nChart', nSet);
+        createTable('nTable', nSet);
+    }
+    if (onS) {
+        sChart = drawChart2('sChart', sSet);
+        createTable2('sTable', sSet);
+    } else {
+        sChart = drawChart('sChart', sSet);
+        createTable('sTable', sSet);
+    }
     document.getElementById('chart').style.display = 'block';
 }
 
