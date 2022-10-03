@@ -139,7 +139,7 @@ var event_data = [
             ["tab", "1) 2014er Riesling Sekt Brut"],
             ["rtab right", "Weingut Hexamer / Nahe"],
             ["br", ""],
-            ["tab", "2) 2019er Blanc de Noir Spätburgunder DQ trocken BdN"],
+            ["tab", "2) 2019er Blanc de Noir Spätburgunder DQ trocken"],
             ["rtab right", "Weingut Pfeffingen / Pfalz"],
             ["br", ""],
             ["tab", "3) 2004er -von der Fels- Riesling QbA"],
