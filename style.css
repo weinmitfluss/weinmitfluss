@@ -12,7 +12,7 @@ body {
 
 hr {
     border: 0;
-    border-top: 2px dashed #DE3C3C;
+    border-top: 2px dashed #dd0000;
 }
 
 #body {
@@ -20,7 +20,7 @@ hr {
     margin: auto;
     display: block;
     padding: 10px;
-    background-color: #F7B32D;
+    background-color: #ffcf00;
     border-radius: 10px;
 }
 
@@ -89,7 +89,7 @@ div.title {
     border-style: solid;
     border-top: none;
     border-right: none;
-    border-color: #DE3C3C;
+    border-color: #dd0000;
     border-left-width: 5px;
     border-bottom-width: 2px;
     padding: 5px;
@@ -145,7 +145,7 @@ div.content {
 
 select {
     background-color: transparent;
-    border: 2px solid #DE3C3C;
+    border: 2px solid #dd0000;
     border-radius: 10px;
     line-height: 2em;
     padding: 3px 20px 3px 3px;
@@ -238,7 +238,7 @@ img.imgicon {
     width: 100%;
     height: 100%;
     margin: auto;
-    background: #F7B32D;
+    background: #ffcf00;
 }
 
 .slide img {
