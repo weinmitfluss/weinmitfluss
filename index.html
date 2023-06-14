@@ -16,7 +16,6 @@
     <title>支流の会 - Homepage</title>
     <link rel="shortcut icon" href="./favicon.ico">
     <link rel="stylesheet" href="./style.css">
-    <script src="./data.js"></script>
     <script src="./script.js"></script>
 </head>
 
@@ -52,15 +51,17 @@
         <div id="news">
             <hr>
             <div id="news-title" class="title">News</div>
-            <div id="news-body" class="content">
+            <div id="news-loading" class="center bold sizexx">Loading...</div>
+            <div id="news-body" class="content" style="display: none;">
             </div>
         </div>
         <div id="event">
             <hr>
             <div id="event-title" class="title">Event</div>
-            <select id="event-select">
+            <div id="event-loading" class="center bold sizexx">Loading...</div>
+            <select id="event-select" style="display: none;">
             </select>
-            <div id="event-body" class="content">
+            <div id="event-body" class="content" style="display: none;">
             </div>
         </div>
         <div id="contact">

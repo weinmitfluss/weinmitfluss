@@ -1,10 +1,29 @@
+'use strict';
+
+const DATA_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=Ck_8iWyBMuAAKcEW_TbafWC5Ta1NJyieS-dxLI4khVmITjhV9R16g2cIDxvPqaNwVxvt4hXN3Iu9Ghqo0hfUt7sjrN_ipT2_m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnMPJeHxv25f9qoS9yDuMEjSoCsJYRNmt_qBZsGKrx9wSbCrxbLMd0Gwe9PxFQX8w-ltRP5uKlu21V7H6D3yDXGUm_JjsbyT8wtz9Jw9Md8uu&lib=MAwm_JUE8IwHoQhnd5-nbUEzgwH7sehr_";
+
+var event_data = [];
 
 function init() {
-    setContents();
-    getEBI("input").addEventListener("change", onChange);
-    getEBI("input").addEventListener("keyup", onChange);
-    getEBI("popup").addEventListener("click", hidePop);
-    getEBI("layer").addEventListener("click", hidePop);
+    fetch(DATA_URL, {
+        method: 'GET',
+    }).then((response) => {
+        return response.json();
+    }).then((data) => {
+        console.log('Success:', data);
+        event_data = data;
+        setContents();
+        getEBI("input").addEventListener("change", onChange);
+        getEBI("input").addEventListener("keyup", onChange);
+        getEBI("popup").addEventListener("click", hidePop);
+        getEBI("layer").addEventListener("click", hidePop);
+        getEBI("search").style.display = 'block';
+        getEBI("loading").style.display = 'none';
+        console.log('Finish');
+    }).catch((error) => {
+        console.error('Error:', error);
+        alert("データ取得失敗\n" + error.message);
+    });
 }
 
 function getEBI(id) {
@@ -31,6 +50,11 @@ function createImg(src) {
     let div = createDiv("center", "");
     div.appendChild(img);
     return div;
+}
+
+function createImg2(gid) {
+    let src = "http://drive.google.com/uc?export=view&id=" + encodeURIComponent(gid);
+    return createImg(src);
 }
 
 function showPop(event) {
@@ -64,10 +88,14 @@ function setContents() {
         event.className = "content";
         for (let j = 0; j < contents.length; j++) {
             let data = contents[j];
-            if (data[0] == "br") {
+            if (data[0] == "skip") {
+                console.log("skip", data[0], data[1]);
+            } else if (data[0] == "br") {
                 event.appendChild(createBr());
             } else if (data[0] == "img") {
                 event.appendChild(createImg(data[1]));
+            } else if (data[0] == "img2") {
+                event.appendChild(createImg2(data[1]));
             } else {
                 event.appendChild(createDiv(data[0], data[1]));
             }

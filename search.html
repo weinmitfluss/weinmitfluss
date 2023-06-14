@@ -7,14 +7,14 @@
     <title>支流の会/検索 - Homepage/Search</title>
     <link rel="shortcut icon" href="./favicon.ico">
     <link rel="stylesheet" href="./style.css">
-    <script src="./data.js"></script>
     <script src="./search.js"></script>
 </head>
 
 <body>
     <div id="body">
         <div class="title">Search</div>
-        <table class="search">
+        <div id="loading" class="center bold sizexx">Loading...</div>
+        <table class="search" id="search" style="display: none;">
             <tr>
                 <td class="search">
                     <input id="input" type="search">
