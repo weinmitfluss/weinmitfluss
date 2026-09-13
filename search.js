@@ -1,7 +1,7 @@
 "use strict";
 
-const DATA_URL =
-  "https://script.google.com/macros/s/AKfycbxmu5p8QjB5F-R4dAa1qmF5NetoZNjBO0x33tf-vEEOjG3cwkiqhE5a31axz0IE_0mitg/exec";
+// "https://script.google.com/macros/s/AKfycbxmu5p8QjB5F-R4dAa1qmF5NetoZNjBO0x33tf-vEEOjG3cwkiqhE5a31axz0IE_0mitg/exec";
+const DATA_URL = "./data.json";
 
 var event_data = [];
 
